@@ -1,0 +1,671 @@
+import {
+  Vehiculo,
+  Conductor,
+  Cliente,
+  Ruta,
+  Taller,
+  ProgramacionOperacion,
+  RegistroMantenimiento,
+  RegistroCombustible,
+  CajaChicaGasto,
+  CuentaPorCobrar
+} from '../types/erp';
+
+export const INITIAL_VEHICULOS: Vehiculo[] = [
+  {
+    id: 'veh-01',
+    placa: 'V9C-892',
+    marca: 'Volvo',
+    modelo: 'FH 540 6x4T Globetrotter',
+    anio: 2023,
+    configuracion: 'T3S3',
+    kilometrajeActual: 148520,
+    capacidadCargaTn: 32.5,
+    estado: 'OPERATIVO',
+    soatVencimiento: '2027-04-15',
+    revTecnicaVencimiento: '2027-05-20'
+  },
+  {
+    id: 'veh-02',
+    placa: 'T4E-711',
+    marca: 'Scania',
+    modelo: 'R 450 Highline Streamline',
+    anio: 2022,
+    configuracion: 'T3S3',
+    kilometrajeActual: 192340,
+    capacidadCargaTn: 34.0,
+    estado: 'OPERATIVO',
+    soatVencimiento: '2027-02-10',
+    revTecnicaVencimiento: '2027-03-12'
+  },
+  {
+    id: 'veh-03',
+    placa: 'B8X-935',
+    marca: 'Mercedes-Benz',
+    modelo: 'Actros 2645 LS',
+    anio: 2021,
+    configuracion: 'T3S3',
+    kilometrajeActual: 245100,
+    capacidadCargaTn: 30.0,
+    estado: 'EN_MANTENIMIENTO',
+    soatVencimiento: '2026-11-28',
+    revTecnicaVencimiento: '2026-12-05'
+  },
+  {
+    id: 'veh-04',
+    placa: 'F7K-842',
+    marca: 'International',
+    modelo: 'LT 625 Diamond',
+    anio: 2023,
+    configuracion: 'T3S2',
+    kilometrajeActual: 112450,
+    capacidadCargaTn: 28.0,
+    estado: 'OPERATIVO',
+    soatVencimiento: '2027-06-30',
+    revTecnicaVencimiento: '2027-07-15'
+  },
+  {
+    id: 'veh-05',
+    placa: 'A9Z-104',
+    marca: 'Freightliner',
+    modelo: 'Cascadia DD15 Evolution',
+    anio: 2020,
+    configuracion: 'T3S3',
+    kilometrajeActual: 310800,
+    capacidadCargaTn: 32.0,
+    estado: 'OPERATIVO',
+    soatVencimiento: '2027-01-19',
+    revTecnicaVencimiento: '2027-02-28'
+  }
+];
+
+export const INITIAL_CONDUCTORES: Conductor[] = [
+  {
+    id: 'cond-01',
+    nombres: 'Carlos Eduardo',
+    apellidos: 'Mendoza Quispe',
+    dni: '43921854',
+    licencia: 'Q43921854',
+    categoria: 'A-IIIc',
+    telefono: '984 512 873',
+    estado: 'EN_RUTA',
+    licenciaVencimiento: '2028-09-14'
+  },
+  {
+    id: 'cond-02',
+    nombres: 'Jorge Luis',
+    apellidos: 'Mamani Condori',
+    dni: '41209384',
+    licencia: 'M41209384',
+    categoria: 'A-IIIc',
+    telefono: '951 842 109',
+    estado: 'DISPONIBLE',
+    licenciaVencimiento: '2029-01-22'
+  },
+  {
+    id: 'cond-03',
+    nombres: 'Víctor Raúl',
+    apellidos: 'Huamán Barreto',
+    dni: '45871203',
+    licencia: 'H45871203',
+    categoria: 'A-IIIc',
+    telefono: '976 341 552',
+    estado: 'EN_RUTA',
+    licenciaVencimiento: '2027-11-04'
+  },
+  {
+    id: 'cond-04',
+    nombres: 'Segundo Alberto',
+    apellidos: 'Ríos Paredes',
+    dni: '40192847',
+    licencia: 'R40192847',
+    categoria: 'A-IIIc',
+    telefono: '942 673 891',
+    estado: 'DISPONIBLE',
+    licenciaVencimiento: '2028-04-18'
+  }
+];
+
+export const INITIAL_CLIENTES: Cliente[] = [
+  {
+    id: 'cli-01',
+    ruc: '20100070970',
+    razonSocial: 'Corporación Aceros Arequipa S.A.',
+    contacto: 'Ing. Rodrigo Valdivia',
+    telefono: '(01) 517-1800',
+    email: 'logistica@acerosarequipa.com',
+    diasCredito: 45,
+    lineaCreditoPEN: 120000.00
+  },
+  {
+    id: 'cli-02',
+    ruc: '20100055237',
+    razonSocial: 'Alicorp S.A.A.',
+    contacto: 'Lic. Mariana Solís',
+    telefono: '(01) 315-0800',
+    email: 'transporte_materia_prima@alicorp.com.pe',
+    diasCredito: 30,
+    lineaCreditoPEN: 95000.00
+  },
+  {
+    id: 'cli-03',
+    ruc: '20505678912',
+    razonSocial: 'Minera Chinalco Perú S.A.',
+    contacto: 'Sr. Dante Alarcón',
+    telefono: '(01) 618-9000',
+    email: 'abastecimiento@chinalco.com.pe',
+    diasCredito: 60,
+    lineaCreditoPEN: 250000.00
+  },
+  {
+    id: 'cli-04',
+    ruc: '20100119227',
+    razonSocial: 'Gloria S.A.',
+    contacto: 'Claudia Palacios',
+    telefono: '(01) 470-7170',
+    email: 'fletes_nacional@gloria.com.pe',
+    diasCredito: 30,
+    lineaCreditoPEN: 80000.00
+  }
+];
+
+export const INITIAL_RUTAS: Ruta[] = [
+  {
+    id: 'rut-01',
+    origen: 'Callao (Terminal APM Terminals)',
+    destino: 'Arequipa (Parque Industrial)',
+    distanciaKm: 1015,
+    peajesEstimadosPEN: 340.00,
+    tiempoEstimadoHoras: 18.5
+  },
+  {
+    id: 'rut-02',
+    origen: 'Lima (Lurín)',
+    destino: 'Pisco (Planta Siderúrgica)',
+    distanciaKm: 240,
+    peajesEstimadosPEN: 78.00,
+    tiempoEstimadoHoras: 4.5
+  },
+  {
+    id: 'rut-03',
+    origen: 'Callao (DP World)',
+    destino: 'Huancayo (Almacén Central)',
+    distanciaKm: 310,
+    peajesEstimadosPEN: 112.00,
+    tiempoEstimadoHoras: 8.0
+  },
+  {
+    id: 'rut-04',
+    origen: 'Lima (Ate Vitarte)',
+    destino: 'Trujillo (Moche)',
+    distanciaKm: 560,
+    peajesEstimadosPEN: 184.00,
+    tiempoEstimadoHoras: 9.5
+  }
+];
+
+export const INITIAL_TALLERES: Taller[] = [
+  {
+    id: 'tal-01',
+    razonSocial: 'Taller Central de Flota Collyer',
+    ruc: '20601849201',
+    tipo: 'INTERNO',
+    contacto: 'Jefe Taller Ing. Marcos Aranda',
+    telefono: '998 123 456',
+    direccion: 'Av. Néstor Gambetta Km 8.5, Callao'
+  },
+  {
+    id: 'tal-02',
+    razonSocial: 'Volvo Group Perú S.A. - Sucursal Lurín',
+    ruc: '20100147603',
+    tipo: 'EXTERNO',
+    contacto: 'Asesor de Servicio Paul Espinoza',
+    telefono: '(01) 317-1111',
+    direccion: 'Panamericana Sur Km 38.5, Lurín, Lima'
+  },
+  {
+    id: 'tal-03',
+    razonSocial: 'Scania Servicios Huachipa',
+    ruc: '20100289456',
+    tipo: 'EXTERNO',
+    contacto: 'Ing. Walter Benavides',
+    telefono: '(01) 612-4000',
+    direccion: 'Carretera Central Km 11, Santa Anita'
+  }
+];
+
+// 1. Programación de operaciones diarias
+export const INITIAL_OPERACIONES: ProgramacionOperacion[] = [
+  {
+    id: 'op-01',
+    codigoOperacion: 'OP-2026-0418',
+    ordenServicioRef: 'OS-8821-ACEROS',
+    fechaProgramada: '2026-10-09',
+    rutaId: 'rut-01',
+    rutaNombre: 'Callao (Terminal) → Arequipa (Parque Industrial)',
+    vehiculoId: 'veh-01',
+    vehiculoPlaca: 'V9C-892',
+    conductorId: 'cond-01',
+    conductorNombre: 'Carlos Eduardo Mendoza Quispe',
+    clienteId: 'cli-01',
+    clienteNombre: 'Corporación Aceros Arequipa S.A.',
+    cargaDescripcion: 'Barras de construcción corrugadas ASTM A615 grado 60',
+    pesoTn: 31.8,
+    origenDetalle: 'Muelle Sur APM Terminals Callao',
+    destinoDetalle: 'Planta Industrial Río Seco, Arequipa',
+    estado: 'EN_RUTA',
+    odometroInicial: 147505,
+    observaciones: 'Monitoreo satelital activo cada 15 minutos. Parada técnica programada en Chala.',
+    createdAt: '2026-10-09T06:30:00Z'
+  },
+  {
+    id: 'op-02',
+    codigoOperacion: 'OP-2026-0419',
+    ordenServicioRef: 'OS-8822-ALICORP',
+    fechaProgramada: '2026-10-09',
+    rutaId: 'rut-04',
+    rutaNombre: 'Lima (Ate) → Trujillo (Moche)',
+    vehiculoId: 'veh-02',
+    vehiculoPlaca: 'T4E-711',
+    conductorId: 'cond-03',
+    conductorNombre: 'Víctor Raúl Huamán Barreto',
+    clienteId: 'cli-02',
+    clienteNombre: 'Alicorp S.A.A.',
+    cargaDescripcion: 'Aceite vegetal a granel y harina industrial en sacos',
+    pesoTn: 29.5,
+    origenDetalle: 'CD Central Alicorp - Nicolás Ayllón, Lima',
+    destinoDetalle: 'Almacén Regional Norte - Panamericana Norte Km 552',
+    estado: 'EN_RUTA',
+    odometroInicial: 191780,
+    observaciones: 'Custodia armada desde Casma hasta Trujillo por valor de carga.',
+    createdAt: '2026-10-09T08:00:00Z'
+  },
+  {
+    id: 'op-03',
+    codigoOperacion: 'OP-2026-0420',
+    ordenServicioRef: 'OS-8823-GLORIA',
+    fechaProgramada: '2026-10-10',
+    rutaId: 'rut-02',
+    rutaNombre: 'Lima (Lurín) → Pisco (Planta Siderúrgica)',
+    vehiculoId: 'veh-04',
+    vehiculoPlaca: 'F7K-842',
+    conductorId: 'cond-02',
+    conductorNombre: 'Jorge Luis Mamani Condori',
+    clienteId: 'cli-04',
+    clienteNombre: 'Gloria S.A.',
+    cargaDescripcion: 'Insumos lácteos y envases hojalata palletizados',
+    pesoTn: 26.0,
+    origenDetalle: 'Almacén Lurín Km 32',
+    destinoDetalle: 'Planta Gloria Pisco',
+    estado: 'PROGRAMADO',
+    odometroInicial: 112450,
+    observaciones: 'Salida autorizada a las 04:00 AM para evitar congestión en Panamericana Sur.',
+    createdAt: '2026-10-09T11:15:00Z'
+  },
+  {
+    id: 'op-04',
+    codigoOperacion: 'OP-2026-0415',
+    ordenServicioRef: 'OS-8815-CHINALCO',
+    fechaProgramada: '2026-10-07',
+    rutaId: 'rut-03',
+    rutaNombre: 'Callao (DP World) → Huancayo (Almacén)',
+    vehiculoId: 'veh-05',
+    vehiculoPlaca: 'A9Z-104',
+    conductorId: 'cond-04',
+    conductorNombre: 'Segundo Alberto Ríos Paredes',
+    clienteId: 'cli-03',
+    clienteNombre: 'Minera Chinalco Perú S.A.',
+    cargaDescripcion: 'Repuestos para chancadora y bombas de lodos mineros',
+    pesoTn: 28.2,
+    origenDetalle: 'DP World Callao Terminal Marítimo',
+    destinoDetalle: 'Base de Operaciones Mineras Huancayo',
+    estado: 'ENTREGADO',
+    odometroInicial: 310180,
+    odometroFinal: 310800,
+    observaciones: 'Guía de remisión firmada y sellada conforme por almacén receptor.',
+    createdAt: '2026-10-07T05:00:00Z'
+  }
+];
+
+// 2. Registro diario de mantenimiento preventivo y correctivo
+export const INITIAL_MANTENIMIENTOS: RegistroMantenimiento[] = [
+  {
+    id: 'mnt-01',
+    codigoMantenimiento: 'MNT-2026-0182',
+    vehiculoId: 'veh-03',
+    vehiculoPlaca: 'B8X-935',
+    tipoMantenimiento: 'CORRECTIVO',
+    fechaIngreso: '2026-10-08',
+    kilometrajeRegistro: 245100,
+    tallerId: 'tal-02',
+    tallerNombre: 'Volvo Group Perú S.A. - Sucursal Lurín',
+    descripcionServicio: 'Cambio de kit de embrague completo (plato, disco y collarín) y rectificación de volante de inercia por patinamiento.',
+    costoRepuestos: 4850.00,
+    costoManoObra: 1600.00,
+    costoOtros: 250.00,
+    costoTotal: 6700.00,
+    facturaTaller: 'F012-0008412',
+    estado: 'EN_PROCESO',
+    sustentoUrl: 'https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=800&q=80',
+    createdAt: '2026-10-08T09:30:00Z'
+  },
+  {
+    id: 'mnt-02',
+    codigoMantenimiento: 'MNT-2026-0180',
+    vehiculoId: 'veh-01',
+    vehiculoPlaca: 'V9C-892',
+    tipoMantenimiento: 'PREVENTIVO',
+    fechaIngreso: '2026-10-05',
+    fechaSalida: '2026-10-06',
+    kilometrajeRegistro: 145000,
+    tallerId: 'tal-01',
+    tallerNombre: 'Taller Central de Flota Collyer',
+    descripcionServicio: 'Mantenimiento B (145,000 km): Cambio de aceite motor sintético 15W40, filtros de aceite x2, filtro de combustible primario y secundario, engrase general y calibración de frenos.',
+    costoRepuestos: 1820.00,
+    costoManoObra: 450.00,
+    costoOtros: 80.00,
+    costoTotal: 2350.00,
+    facturaTaller: 'INT-2026-0091',
+    estado: 'FINALIZADO',
+    sustentoUrl: 'https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?auto=format&fit=crop&w=800&q=80',
+    createdAt: '2026-10-05T08:00:00Z'
+  },
+  {
+    id: 'mnt-03',
+    codigoMantenimiento: 'MNT-2026-0178',
+    vehiculoId: 'veh-02',
+    vehiculoPlaca: 'T4E-711',
+    tipoMantenimiento: 'PREVENTIVO',
+    fechaIngreso: '2026-09-28',
+    fechaSalida: '2026-09-29',
+    kilometrajeRegistro: 190000,
+    tallerId: 'tal-03',
+    tallerNombre: 'Scania Servicios Huachipa',
+    descripcionServicio: 'Revisión y sustitución de pastillas de freno en eje motriz, purga de sistema neumático y cambio de secador de aire.',
+    costoRepuestos: 2100.00,
+    costoManoObra: 750.00,
+    costoOtros: 120.00,
+    costoTotal: 2970.00,
+    facturaTaller: 'F004-0012903',
+    estado: 'FINALIZADO',
+    sustentoUrl: 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80',
+    createdAt: '2026-09-28T10:15:00Z'
+  }
+];
+
+// 3. Registro de combustible y abastecimiento diario
+export const INITIAL_COMBUSTIBLE: RegistroCombustible[] = [
+  {
+    id: 'comb-01',
+    codigoVale: 'COMB-2026-0941',
+    vehiculoId: 'veh-01',
+    vehiculoPlaca: 'V9C-892',
+    conductorId: 'cond-01',
+    conductorNombre: 'Carlos Eduardo Mendoza Quispe',
+    programacionId: 'op-01',
+    operacionCodigo: 'OP-2026-0418',
+    fechaAbastecimiento: '2026-10-09',
+    estacionServicio: 'Primax Estación Panamericana Sur Km 130 - Cañete',
+    tipoCombustible: 'DIESEL_B5',
+    galones: 125.40,
+    precioPorGalon: 18.25,
+    costoTotal: 2288.55,
+    kilometrajeOdometro: 147980,
+    rendimientoKmGalon: 3.78,
+    numeroComprobante: 'F045-0089123',
+    urlSustentoDocumentario: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80',
+    observaciones: 'Tanqueo al 100% para tramo Chala - Camaná.',
+    createdAt: '2026-10-09T10:45:00Z'
+  },
+  {
+    id: 'comb-02',
+    codigoVale: 'COMB-2026-0940',
+    vehiculoId: 'veh-02',
+    vehiculoPlaca: 'T4E-711',
+    conductorId: 'cond-03',
+    conductorNombre: 'Víctor Raúl Huamán Barreto',
+    programacionId: 'op-02',
+    operacionCodigo: 'OP-2026-0419',
+    fechaAbastecimiento: '2026-10-09',
+    estacionServicio: 'Repsol Planta Huacho - Panamericana Norte Km 148',
+    tipoCombustible: 'DIESEL_B5',
+    galones: 95.80,
+    precioPorGalon: 18.10,
+    costoTotal: 1733.98,
+    kilometrajeOdometro: 192150,
+    rendimientoKmGalon: 3.86,
+    numeroComprobante: 'F012-0045819',
+    urlSustentoDocumentario: 'https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&w=800&q=80',
+    observaciones: 'Abastecimiento en ruta hacia Trujillo.',
+    createdAt: '2026-10-09T09:20:00Z'
+  },
+  {
+    id: 'comb-03',
+    codigoVale: 'COMB-2026-0935',
+    vehiculoId: 'veh-05',
+    vehiculoPlaca: 'A9Z-104',
+    conductorId: 'cond-04',
+    conductorNombre: 'Segundo Alberto Ríos Paredes',
+    programacionId: 'op-04',
+    operacionCodigo: 'OP-2026-0415',
+    fechaAbastecimiento: '2026-10-07',
+    estacionServicio: 'Petroperú Grifo La Oroya Central',
+    tipoCombustible: 'DIESEL_B5',
+    galones: 88.00,
+    precioPorGalon: 18.40,
+    costoTotal: 1619.20,
+    kilometrajeOdometro: 310520,
+    rendimientoKmGalon: 3.65,
+    numeroComprobante: 'F002-0098451',
+    urlSustentoDocumentario: 'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=800&q=80',
+    observaciones: 'Tramo de altura en subida Ticlio.',
+    createdAt: '2026-10-07T14:10:00Z'
+  }
+];
+
+// 4. Control de Caja Chica y gastos operativos diarios
+export const INITIAL_CAJA_CHICA: CajaChicaGasto[] = [
+  {
+    id: 'cch-01',
+    codigoGasto: 'CCH-2026-0210',
+    fechaGasto: '2026-10-09',
+    tipoMovimiento: 'EGRESO',
+    categoriaGasto: 'PEAJES',
+    programacionId: 'op-01',
+    operacionCodigo: 'OP-2026-0418',
+    vehiculoId: 'veh-01',
+    vehiculoPlaca: 'V9C-892',
+    conductorId: 'cond-01',
+    conductorNombre: 'Carlos Eduardo Mendoza Quispe',
+    monto: 340.00,
+    moneda: 'PEN',
+    beneficiarioOProveedor: 'Rutas de Lima / CoviPerú / Survial',
+    tipoComprobante: 'TICKET',
+    numeroComprobante: 'TK-PEAJE-89128',
+    sustentoUrl: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80',
+    observaciones: 'Peajes consolidados tramo Lima - Ica - Chala - Arequipa.',
+    estado: 'APROBADO',
+    aprobadoPor: 'Administración / Tesorería',
+    createdAt: '2026-10-09T07:15:00Z'
+  },
+  {
+    id: 'cch-02',
+    codigoGasto: 'CCH-2026-0211',
+    fechaGasto: '2026-10-09',
+    tipoMovimiento: 'EGRESO',
+    categoriaGasto: 'VIATICOS',
+    programacionId: 'op-01',
+    operacionCodigo: 'OP-2026-0418',
+    vehiculoId: 'veh-01',
+    vehiculoPlaca: 'V9C-892',
+    conductorId: 'cond-01',
+    conductorNombre: 'Carlos Eduardo Mendoza Quispe',
+    monto: 250.00,
+    moneda: 'PEN',
+    beneficiarioOProveedor: 'Carlos Eduardo Mendoza Quispe (Chofer)',
+    tipoComprobante: 'RECIBO_INTERNO',
+    numeroComprobante: 'VIAT-2026-0418',
+    sustentoUrl: 'https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&w=800&q=80',
+    observaciones: 'Viáticos de 3 días de viaje (alimentación y estadía en Arequipa).',
+    estado: 'APROBADO',
+    aprobadoPor: 'Gerencia de Operaciones',
+    createdAt: '2026-10-09T07:20:00Z'
+  },
+  {
+    id: 'cch-03',
+    codigoGasto: 'CCH-2026-0212',
+    fechaGasto: '2026-10-09',
+    tipoMovimiento: 'EGRESO',
+    categoriaGasto: 'REPUESTO_EMERGENCIA',
+    programacionId: 'op-02',
+    operacionCodigo: 'OP-2026-0419',
+    vehiculoId: 'veh-02',
+    vehiculoPlaca: 'T4E-711',
+    conductorId: 'cond-03',
+    conductorNombre: 'Víctor Raúl Huamán Barreto',
+    monto: 185.00,
+    moneda: 'PEN',
+    beneficiarioOProveedor: 'Llantas y Vulcanizadora Barranca S.R.L.',
+    tipoComprobante: 'FACTURA',
+    numeroComprobante: 'F001-0003194',
+    sustentoUrl: 'https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=800&q=80',
+    observaciones: 'Parche térmico en frío y válvula de aire de llanta trasera derecha por desinflado súbito.',
+    estado: 'PENDIENTE_RENDICION',
+    createdAt: '2026-10-09T11:00:00Z'
+  },
+  {
+    id: 'cch-04',
+    codigoGasto: 'CCH-2026-0208',
+    fechaGasto: '2026-10-08',
+    tipoMovimiento: 'EGRESO',
+    categoriaGasto: 'PEAJES',
+    programacionId: 'op-02',
+    operacionCodigo: 'OP-2026-0419',
+    vehiculoId: 'veh-02',
+    vehiculoPlaca: 'T4E-711',
+    conductorId: 'cond-03',
+    conductorNombre: 'Víctor Raúl Huamán Barreto',
+    monto: 184.00,
+    moneda: 'PEN',
+    beneficiarioOProveedor: 'Autopistas del Norte (Aunor)',
+    tipoComprobante: 'TICKET',
+    numeroComprobante: 'TK-PEAJE-NORTH-4410',
+    sustentoUrl: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80',
+    observaciones: 'Peajes Lima a Trujillo (Ancón, Fortaleza, Huarmey, Vesique).',
+    estado: 'APROBADO',
+    aprobadoPor: 'Administración / Tesorería',
+    createdAt: '2026-10-08T08:45:00Z'
+  }
+];
+
+// 5. Módulo de Cuentas por Cobrar
+export const INITIAL_CUENTAS_POR_COBRAR: CuentaPorCobrar[] = [
+  {
+    id: 'cxc-01',
+    codigoFactura: 'F001-000490',
+    tipoComprobante: 'FACTURA',
+    clienteId: 'cli-01',
+    clienteNombre: 'Corporación Aceros Arequipa S.A.',
+    clienteRuc: '20100070970',
+    programacionId: 'op-01',
+    operacionCodigo: 'OP-2026-0418',
+    fechaEmision: '2026-09-15',
+    fechaVencimiento: '2026-10-30',
+    moneda: 'PEN',
+    subtotal: 14500.00,
+    igv: 2610.00,
+    montoTotal: 17110.00,
+    montoCobrado: 10000.00,
+    saldoPendiente: 7110.00,
+    estado: 'PARCIAL',
+    observaciones: 'Flete de carga pesada Callao - Arequipa. Pago parcial registrado.',
+    abonos: [
+      {
+        id: 'abn-01',
+        cuentaCobrarId: 'cxc-01',
+        fechaPago: '2026-09-30',
+        montoPago: 10000.00,
+        medioPago: 'TRANSFERENCIA',
+        numeroOperacion: 'BCO-BCP-9920148',
+        banco: 'Banco de Crédito del Perú (BCP)',
+        createdAt: '2026-09-30T15:20:00Z'
+      }
+    ],
+    createdAt: '2026-09-15T10:00:00Z'
+  },
+  {
+    id: 'cxc-02',
+    codigoFactura: 'F001-000482',
+    tipoComprobante: 'FACTURA',
+    clienteId: 'cli-02',
+    clienteNombre: 'Alicorp S.A.A.',
+    clienteRuc: '20100055237',
+    programacionId: 'op-02',
+    operacionCodigo: 'OP-2026-0419',
+    fechaEmision: '2026-09-01',
+    fechaVencimiento: '2026-10-01', // Vencida
+    moneda: 'PEN',
+    subtotal: 11200.00,
+    igv: 2016.00,
+    montoTotal: 13216.00,
+    montoCobrado: 0.00,
+    saldoPendiente: 13216.00,
+    estado: 'VENCIDA',
+    observaciones: 'Vencida hace 8 días. Carta de cobranza enviada a Tesorería de Alicorp.',
+    abonos: [],
+    createdAt: '2026-09-01T09:00:00Z'
+  },
+  {
+    id: 'cxc-03',
+    codigoFactura: 'F001-000495',
+    tipoComprobante: 'FACTURA',
+    clienteId: 'cli-03',
+    clienteNombre: 'Minera Chinalco Perú S.A.',
+    clienteRuc: '20505678912',
+    programacionId: 'op-04',
+    operacionCodigo: 'OP-2026-0415',
+    fechaEmision: '2026-10-07',
+    fechaVencimiento: '2026-12-06',
+    moneda: 'PEN',
+    subtotal: 18900.00,
+    igv: 3402.00,
+    montoTotal: 22302.00,
+    montoCobrado: 0.00,
+    saldoPendiente: 22302.00,
+    estado: 'EMITIDA',
+    observaciones: 'Flete de repuestos mineros de alta precisión Callao - Huancayo. Crédito 60 días.',
+    abonos: [],
+    createdAt: '2026-10-07T16:00:00Z'
+  },
+  {
+    id: 'cxc-04',
+    codigoFactura: 'F001-000475',
+    tipoComprobante: 'FACTURA',
+    clienteId: 'cli-04',
+    clienteNombre: 'Gloria S.A.',
+    clienteRuc: '20100119227',
+    fechaEmision: '2026-08-20',
+    fechaVencimiento: '2026-09-19',
+    moneda: 'PEN',
+    subtotal: 9800.00,
+    igv: 1764.00,
+    montoTotal: 11564.00,
+    montoCobrado: 11564.00,
+    saldoPendiente: 0.00,
+    estado: 'COBRADA',
+    observaciones: 'Cancelada en su totalidad mediante abono interbancario BBVA.',
+    abonos: [
+      {
+        id: 'abn-02',
+        cuentaCobrarId: 'cxc-04',
+        fechaPago: '2026-09-18',
+        montoPago: 11564.00,
+        medioPago: 'TRANSFERENCIA',
+        numeroOperacion: 'BBVA-CCI-4419208',
+        banco: 'BBVA Perú',
+        createdAt: '2026-09-18T11:40:00Z'
+      }
+    ],
+    createdAt: '2026-08-20T14:30:00Z'
+  }
+];
